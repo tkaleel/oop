@@ -1,20 +1,26 @@
 class Ninja:
-    def __init__(self, first_name, last_name, pet, treats, pet_food):
+    def __init__(self, first_name, last_name, treats, pet_food, pet):
         self.first_name = first_name
         self.last_name = last_name
-        self.pet = pet
         self.treats = treats
         self.pet_food = pet_food
+        self.pet = pet
     
     def walk(self):
-        Pet.play(self)
+        self.pet.play()
         return self
     
     def feed(self):
-        Pet.eat()
+        if len(self.pet_food) > 0:
+            food = self.pet_food.pop()
+            print(f"Feeding {self.pet.name} {food}!")
+            self.pet.eat()
+        else:
+            print("Oh no!!! you need more pet food!")
+        return self
 
     def bathe(self):
-        Pet.noise()
+        self.pet.noise()
 
 class Pet:
     def __init__(self, name, type, tricks, health, energy):
@@ -38,14 +44,15 @@ class Pet:
         return self
 
     def noise(self):
-        print("*SCREAMS*")
+        print(self.name, ": *SCREAMS*")
 
-theo = Ninja("Theo", "Kaleel", "Sachiko", 5, 5)
 sachiko = Pet("Sachiko", "Shiba", "sit", 100, 100)
+theo = Ninja("Theo", "Kaleel", "peanut butter", ['tuna', 'salmon', 'homework'], sachiko)
+
 
 # testing Pet method sleep()
 # print(sachiko.energy)
 # sachiko.sleep()
 # print(sachiko.energy)
 
-theo.walk()
+theo.walk().feed().feed().feed().feed().bathe()
